@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        html, body{
+            width: 100%;
+            height: 100%;
+            background-color: rgb(255, 255, 255);
+            /* background-color: rgb(139, 25, 214); */
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+        }
+        div#content{
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+       
+        div#logo{
+            left: 0px;
+            top: 0px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+        div#logo img{
+            width: 60%;
+            height: 60%;
+        }
+        div#logo h2{
+            color: rgb(0, 0, 0);
+            position: relative;
+            font-size: 2em;
+            line-height: 0.5;
+        }
+        div#logo h2#i1{
+            margin-left: -10px;
+            margin-right: 5px;
+            /* margin-top: -10px; */
+        }
+        div#logo h2#i2{
+            /* left: 25%; */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="content">
+    <div id="logo">
+
+        <img src="{{ url_for('static', filename='pdf.png')}}" alt="pdf">
+        <h2 id="i1">to</h2>
+        <h2 id="i2">DOCX</h2>
+    </div>
+    
+    <div id="explain">
+        <p>Esse conversor gratuito de PDF para DOCX permite que você possa
+            converter seu PDF em arquivos DOCX do Microsoft Word, sendo editável e 
+            completamente organizado exatamento como o arquivo PDF convertido.</p>
+    </div>
+
+    <form action = "http://localhost:3000/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <div id="fileplace">
+            <label for="file">Selecionar arquivo</label>
+            <input type="file" id="file" name="file" />
+            <button type="submit" >Enviar</button>
+         </div>
+         <!-- <div class="container">
+            <button id="button" type="submit"></button>
+          </div> -->
+         <!-- <input type = "submit" class="submit_btn"/> -->
+    </form> 
+    </div>  
+    <script>
+        const newElement = document.createElement('h4')
+        newElement.setAttribute('id', 'fileinfo')
+        const divFlInput = document.getElementById('fileplace')
+        const flInput = document.getElementById('file')
+        flInput.addEventListener('change', (event) => {
+            console.log(event.target.files)
+            if(event.target.files.length > 0){
+                if(!String(event.target.files[0].name).endsWith('.pdf')){
+                    alert('PDF por favor!')
+                    let fileArray = Array.from(event.target.files)
+                    fileArray.splice(0, fileArray.length)
+
+                }else{
+                    newElement.innerText = event.target.files[0].name
+                    divFlInput.appendChild(newElement)
+                }
+            }
+        })
+    </script>
+
+    
+</body>
+</html>
